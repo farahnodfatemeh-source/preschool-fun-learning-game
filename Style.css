@@ -1,0 +1,571 @@
+/* =========================================================
+   ماجراجویی رنگین‌کمان کوچولو
+   style.css
+   طراحی شاد و کودکانه برای بازی آموزشی پیش‌دبستانی
+========================================================= */
+/* =========================
+   تنظیمات پایه
+========================= */
+:root {
+    --pink: #ff6fae;
+    --pink-light: #ffe1ef;
+    --purple: #8b6cff;
+    --purple-light: #eee9ff;
+    --blue: #55b9ff;
+    --blue-light: #e1f4ff;
+    --yellow: #ffd84d;
+    --yellow-light: #fff5c7;
+    --green: #55c878;
+    --green-light: #ddf8e5;
+    --orange: #ff9d4d;
+    --orange-light: #ffead7;
+    --red: #ff6262;
+    --text: #4b4265;
+    --text-light: #756d8d;
+    --white: #ffffff;
+    --shadow: 0 12px 30px rgba(91, 72, 130, 0.14);
+    --shadow-hover: 0 16px 35px rgba(91, 72, 130, 0.2);
+    --radius: 28px;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    color: var(--text);
+    font-family:
+        Tahoma,
+        Arial,
+        "Segoe UI",
+        sans-serif;
+    background:
+        radial-gradient(circle at 10% 15%, rgba(255, 255, 255, 0.95) 0 4%, transparent 5%),
+        radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0.8) 0 5%, transparent 6%),
+        linear-gradient(180deg, #dff6ff 0%, #f8efff 48%, #fff8df 100%);
+}
+button {
+    font: inherit;
+}
+button:focus-visible {
+    outline: 5px solid rgba(85, 185, 255, 0.45);
+    outline-offset: 4px;
+}
+.hidden {
+    display: none !important;
+}
+/* =========================
+   تزئینات پس‌زمینه
+========================= */
+.background-decorations {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+.cloud,
+.star,
+.balloon {
+    position: absolute;
+    user-select: none;
+}
+.cloud {
+    font-size: clamp(45px, 7vw, 90px);
+    opacity: 0.75;
+    animation: cloudFloat 7s ease-in-out infinite;
+}
+.cloud-1 {
+    top: 8%;
+    left: 4%;
+}
+.cloud-2 {
+    top: 22%;
+    right: 5%;
+    animation-delay: 1.5s;
+}
+.cloud-3 {
+    bottom: 8%;
+    left: 8%;
+    font-size: 55px;
+    animation-delay: 3s;
+}
+.star {
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+.star-1 {
+    top: 12%;
+    right: 22%;
+    font-size: 30px;
+}
+.star-2 {
+    top: 42%;
+    left: 5%;
+    font-size: 25px;
+    animation-delay: 0.7s;
+}
+.star-3 {
+    bottom: 18%;
+    right: 8%;
+    font-size: 35px;
+    animation-delay: 1.2s;
+}
+.balloon {
+    font-size: 55px;
+    animation: balloonFloat 5s ease-in-out infinite;
+}
+.balloon-1 {
+    top: 55%;
+    right: 2%;
+}
+.balloon-2 {
+    bottom: 5%;
+    left: 3%;
+    animation-delay: 2s;
+}
+/* =========================
+   هدر
+========================= */
+.game-header {
+    width: min(1100px, calc(100% - 30px));
+    margin: 18px auto 0;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.88);
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+}
+.game-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.logo-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    font-size: 36px;
+    background: linear-gradient(135deg, #fff1a8, #ffd4e8);
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(255, 111, 174, 0.15);
+}
+.game-logo h1 {
+    color: #6652a8;
+    font-size: clamp(18px, 3vw, 25px);
+    line-height: 1.4;
+}
+.game-logo p {
+    margin-top: 2px;
+    color: var(--text-light);
+    font-size: 12px;
+}
+.sound-button {
+    width: 52px;
+    height: 52px;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background: var(--yellow-light);
+    box-shadow: 0 6px 15px rgba(255, 216, 77, 0.25);
+    font-size: 25px;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+.sound-button:hover {
+    transform: scale(1.08) rotate(5deg);
+}
+.sound-button:active {
+    transform: scale(0.94);
+}
+.sound-button.muted {
+    background: #eeeeee;
+    filter: grayscale(0.5);
+}
+/* =========================
+   محتوای اصلی
+========================= */
+main {
+    width: min(1000px, calc(100% - 30px));
+    margin: 25px auto 50px;
+    position: relative;
+    z-index: 5;
+}
+.screen {
+    width: 100%;
+    animation: screenEnter 0.5s ease both;
+}
+/* =========================
+   صفحه شروع
+========================= */
+.start-screen {
+    min-height: calc(100vh - 150px);
+    min-height: calc(100svh - 150px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 35px 20px 50px;
+}
+.welcome-character {
+    width: 125px;
+    height: 125px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 5px;
+    font-size: 82px;
+    background: linear-gradient(145deg, #ffffff, #fff0fa);
+    border: 5px solid #ffffff;
+    border-radius: 50%;
+    box-shadow:
+        0 15px 35px rgba(139, 108, 255, 0.18),
+        inset 0 -8px 0 rgba(255, 111, 174, 0.08);
+    animation: characterBounce 2.5s ease-in-out infinite;
+}
+.rainbow-title {
+    margin-top: -15px;
+    font-size: 75px;
+    line-height: 1;
+    animation: rainbowFloat 3s ease-in-out infinite;
+}
+.start-screen h2 {
+    margin-top: 10px;
+    color: #6652a8;
+    font-size: clamp(28px, 6vw, 45px);
+    line-height: 1.5;
+}
+.welcome-text {
+    max-width: 600px;
+    margin-top: 10px;
+    color: var(--text-light);
+    font-size: clamp(16px, 3vw, 21px);
+    line-height: 2;
+}
+.learning-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 22px 0;
+}
+.learning-icons span {
+    width: 55px;
+    height: 55px;
+    display: grid;
+    place-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    font-size: 28px;
+    box-shadow: 0 7px 18px rgba(91, 72, 130, 0.1);
+    animation: iconWiggle 3s ease-in-out infinite;
+}
+.learning-icons span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.learning-icons span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+.learning-icons span:nth-child(4) {
+    animation-delay: 0.6s;
+}
+.learning-icons span:nth-child(5) {
+    animation-delay: 0.8s;
+}
+.small-hint {
+    margin-top: 15px;
+    color: #8b82a0;
+    font-size: 13px;
+}
+/* =========================
+   دکمه‌های اصلی
+========================= */
+.main-button {
+    min-height: 62px;
+    padding: 13px 30px;
+    border: 0;
+    border-radius: 22px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: clamp(17px, 3vw, 21px);
+    cursor: pointer;
+    box-shadow:
+        0 8px 0 rgba(0, 0, 0, 0.08),
+        0 14px 25px rgba(91, 72, 130, 0.16);
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        filter 0.18s ease;
+}
+.main-button:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 11px 0 rgba(0, 0, 0, 0.08),
+        0 18px 30px rgba(91, 72, 130, 0.2);
+    filter: brightness(1.04);
+}
+.main-button:active {
+    transform: translateY(4px);
+    box-shadow:
+        0 3px 0 rgba(0, 0, 0, 0.08),
+        0 7px 15px rgba(91, 72, 130, 0.12);
+}
+.start-button {
+    min-width: min(330px, 90%);
+    background: linear-gradient(135deg, #ff6fae, #9a72ff);
+}
+/* =========================
+   صفحه بازی
+========================= */
+.game-screen {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 30px;
+}
+.game-info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 15px;
+}
+.info-box {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 3px solid #ffffff;
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+.info-icon {
+    font-size: 28px;
+}
+.info-box div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+}
+.info-box small {
+    color: var(--text-light);
+    font-size: 12px;
+}
+.info-box strong {
+    color: #6652a8;
+    font-size: 21px;
+}
+.score-box {
+    background: linear-gradient(135deg, #fffdf0, #fff7c9);
+}
+.question-box {
+    background: linear-gradient(135deg, #f5f1ff, #e9e2ff);
+}
+.correct-box {
+    background: linear-gradient(135deg, #f0fff4, #dcf8e5);
+}
+/* =========================
+   نوار پیشرفت
+========================= */
+.progress-container {
+    width: 100%;
+    height: 18px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.75);
+    border: 3px solid #ffffff;
+    border-radius: 50px;
+    box-shadow: inset 0 2px 5px rgba(91, 72, 130, 0.08);
+}
+.progress-bar {
+    height: 100%;
+    min-width: 0;
+    border-radius: inherit;
+    background:
+        linear-gradient(
+            90deg,
+            #ff6fae,
+            #9a72ff,
+            #55b9ff,
+            #55c878
+        );
+    background-size: 200% 100%;
+    transition: width 0.5s ease;
+    animation: progressColors 3s linear infinite;
+}
+/* =========================
+   شخصیت بازی
+========================= */
+.game-character {
+    width: 75px;
+    height: 75px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto -12px;
+    position: relative;
+    z-index: 3;
+    font-size: 48px;
+    background: #ffffff;
+    border: 4px solid #ffffff;
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    animation: characterBounce 2s ease-in-out infinite;
+}
+/* =========================
+   کارت سؤال
+========================= */
+.question-card {
+    position: relative;
+    padding: 25px 20px 28px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    border: 4px solid #ffffff;
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+}
+.question-category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36px;
+    padding: 6px 16px;
+    color: #6652a8;
+    background: var(--purple-light);
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+}
+.question-text {
+    margin-top: 12px;
+    color: #4f456b;
+    font-size: clamp(22px, 5vw, 34px);
+    line-height: 1.7;
+}
+.question-visual {
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    font-size: clamp(45px, 9vw, 70px);
+    animation: visualPulse 2s ease-in-out infinite;
+}
+/* =========================
+   گزینه‌ها
+========================= */
+.answers-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 18px;
+}
+.answer-button {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 15px;
+    border: 4px solid #ffffff;
+    border-radius: 25px;
+    color: var(--text);
+    background: linear-gradient(135deg, #ffffff, #f8f5ff);
+    box-shadow: 0 8px 20px rgba(91, 72, 130, 0.1);
+    cursor: pointer;
+    font-size: clamp(17px, 3vw, 22px);
+    font-weight: 800;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        border-color 0.18s ease;
+}
+.answer-button:nth-child(1) {
+    background: linear-gradient(135deg, #fff5f8, #ffffff);
+}
+.answer-button:nth-child(2) {
+    background: linear-gradient(135deg, #f1f9ff, #ffffff);
+}
+.answer-button:nth-child(3) {
+    background: linear-gradient(135deg, #f1fff5, #ffffff);
+}
+.answer-button:nth-child(4) {
+    background: linear-gradient(135deg, #fffbed, #ffffff);
+}
+.answer-button:hover {
+    transform: translateY(-5px) scale(1.015);
+    box-shadow: var(--shadow-hover);
+}
+.answer-button:active {
+    transform: translateY(2px) scale(0.99);
+}
+.answer-icon {
+    font-size: clamp(30px, 6vw, 45px);
+    line-height: 1;
+}
+.answer-text {
+    line-height: 1.6;
+}
+/* =========================
+   وضعیت گزینه صحیح
+========================= */
+.answer-button.correct {
+    color: #176b35;
+    background: linear-gradient(135deg, #d9ffe5, #f5fff8) !important;
+    border-color: #55c878;
+    animation: correctAnswer 0.65s ease;
+}
+.answer-button.correct::after {
+    content: "✓";
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    color: #ffffff;
+    background: #55c878;
+    border-radius: 50%;
+    font-size: 22px;
+    font-weight: 900;
+}
+/* =========================
+   وضعیت گزینه غلط
+========================= */
+.answer-button.wrong {
+    color: #a83d3d;
+    background: linear-gradient(135deg, #ffe0e0, #fff7f7) !important;
+    border-color: #ff6262;
+    animation: wrongAnswer 0.5s ease;
+}
+/* =========================
+   غیرفعال شدن گزینه‌ها
+========================= */
+.answer-button:disabled {
+    cursor: default;
+}
+.answer-button.disabled {
+    pointer-events: none;
+    opacity: 0.72;
+}
+/* =========================
+   پیام بازخورد
+========================= */
+.feedback {
+    max-width: 650
