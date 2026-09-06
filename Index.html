@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="ماجراجویی رنگین‌کمان کوچولو - بازی آموزشی و سرگرم‌کننده برای کودکان پیش‌دبستانی">
+
+    <title>🌈 ماجراجویی رنگین‌کمان کوچولو</title>
+
+    <!-- فایل CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         پس زمینه و تزئینات
+    ========================== -->
+
+    <div class="background-decorations" aria-hidden="true">
+        <div class="cloud cloud-1">☁️</div>
+        <div class="cloud cloud-2">☁️</div>
+        <div class="cloud cloud-3">☁️</div>
+
+        <div class="star star-1">⭐</div>
+        <div class="star star-2">✨</div>
+        <div class="star star-3">🌟</div>
+
+        <div class="balloon balloon-1">🎈</div>
+        <div class="balloon balloon-2">🎈</div>
+    </div>
+
+
+    <!-- =========================
+         هدر بازی
+    ========================== -->
+
+    <header class="game-header">
+
+        <div class="game-logo">
+            <span class="logo-icon">🌈</span>
+            <div>
+                <h1>ماجراجویی رنگین‌کمان</h1>
+                <p>بازی یادگیری کوچولوها</p>
+            </div>
+        </div>
+
+        <button
+            id="soundToggle"
+            class="sound-button"
+            type="button"
+            aria-label="روشن یا خاموش کردن صدا">
+            🔊
+        </button>
+
+    </header>
+
+
+    <!-- =========================
+         صفحه شروع
+    ========================== -->
+
+    <main>
+
+        <section id="startScreen" class="screen start-screen">
+
+            <div class="welcome-character" aria-hidden="true">
+                🦄
+            </div>
+
+            <div class="rainbow-title">
+                🌈
+            </div>
+
+            <h2>سلام قهرمان کوچولو! 👋</h2>
+
+            <p class="welcome-text">
+                آماده‌ای با هم بازی کنیم و چیزهای جدید یاد بگیریم؟
+            </p>
+
+            <div class="learning-icons" aria-hidden="true">
+                <span>🔴</span>
+                <span>⭐</span>
+                <span>🐱</span>
+                <span>🔢</span>
+                <span>🔵</span>
+            </div>
+
+            <button
+                id="startButton"
+                class="main-button start-button"
+                type="button">
+                🚀 شروع ماجراجویی
+            </button>
+
+            <p class="small-hint">
+                🎵 صدا را روشن کن تا جشن بگیریم!
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             صفحه بازی
+        ========================== -->
+
+        <section
+            id="gameScreen"
+            class="screen game-screen hidden">
+
+            <!-- اطلاعات بازی -->
+
+            <div class="game-info">
+
+                <div class="info-box score-box">
+                    <span class="info-icon">⭐</span>
+                    <div>
+                        <small>امتیاز</small>
+                        <strong id="score">0</strong>
+                    </div>
+                </div>
+
+                <div class="info-box question-box">
+                    <span class="info-icon">🎯</span>
+                    <div>
+                        <small>سؤال</small>
+                        <strong>
+                            <span id="questionNumber">1</span>
+                            /
+                            <span id="totalQuestions">10</span>
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="info-box correct-box">
+                    <span class="info-icon">🌟</span>
+                    <div>
+                        <small>درست</small>
+                        <strong id="correctAnswers">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- نوار پیشرفت -->
+
+            <div
+                class="progress-container"
+                aria-label="پیشرفت بازی">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar"
+                    style="width: 10%;">
+                </div>
+
+            </div>
+
+
+            <!-- شخصیت بازی -->
+
+            <div
+                id="gameCharacter"
+                class="game-character"
+                aria-hidden="true">
+                🦄
+            </div>
+
+
+            <!-- کارت سؤال -->
+
+            <div class="question-card">
+
+                <div
+                    id="questionCategory"
+                    class="question-category">
+                    🎨 رنگ‌ها
+                </div>
+
+                <h2
+                    id="questionText"
+                    class="question-text">
+                    کدام رنگ قرمز است؟
+                </h2>
+
+                <div
+                    id="questionVisual"
+                    class="question-visual"
+                    aria-hidden="true">
+                    🎨
+                </div>
+
+            </div>
+
+
+            <!-- گزینه‌ها -->
+
+            <div
+                id="answersContainer"
+                class="answers-container"
+                role="group"
+                aria-label="گزینه‌های پاسخ">
+
+                <button
+                    class="answer-button"
+                    type="button"
+                    data-answer="0">
+                    <span class="answer-icon">🔴</span>
+                    <span class="answer-text">قرمز</span>
+                </button>
+
+                <button
+                    class="answer-button"
+                    type="button"
+                    data-answer="1">
+                    <span class="answer-icon">🔵</span>
+                    <span class="answer-text">آبی</span>
+                </button>
+
+                <button
+                    class="answer-button"
+                    type="button"
+                    data-answer="2">
+                    <span class="answer-icon">🟢</span>
+                    <span class="answer-text">سبز</span>
+                </button>
+
+                <button
+                    class="answer-button"
+                    type="button"
+                    data-answer="3">
+                    <span class="answer-icon">🟡</span>
+                    <span class="answer-text">زرد</span>
+                </button>
+
+            </div>
+
+
+            <!-- پیام پاسخ -->
+
+            <div
+                id="feedback"
+                class="feedback hidden"
+                role="status"
+                aria-live="polite">
+
+                <div
+                    id="feedbackIcon"
+                    class="feedback-icon">
+                    🎉
+                </div>
+
+                <div>
+                    <h3 id="feedbackTitle">
+                        آفرین!
+                    </h3>
+
+                    <p id="feedbackMessage">
+                        جواب درست بود!
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- دکمه سؤال بعدی -->
+
+            <button
+                id="nextButton"
+                class="main-button next-button hidden"
+                type="button">
+                سؤال بعدی ➡️
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             صفحه پایان بازی
+        ========================== -->
+
+        <section
+            id="resultScreen"
+            class="screen result-screen hidden">
+
+            <!-- جشن و گل‌ها -->
+
+            <div
+                id="celebration"
+                class="celebration"
+                aria-hidden="true">
+
+                <div class="flower flower-1">🌸</div>
+                <div class="flower flower-2">🌼</div>
+                <div class="flower flower-3">🌺</div>
+                <div class="flower flower-4">🌷</div>
+                <div class="flower flower-5">🌻</div>
+
+                <div class="confetti confetti-1">🎊</div>
+                <div class="confetti confetti-2">🎉</div>
+                <div class="confetti confetti-3">🎈</div>
+                <div class="confetti confetti-4">✨</div>
+
+            </div>
+
+
+            <div class="winner-character" aria-hidden="true">
+                🦄
+            </div>
+
+            <div class="winner-crown" aria-hidden="true">
+                👑
+            </div>
+
+            <h2 id="resultTitle">
+                🎉 آفرین قهرمان!
+            </h2>
+
+            <p id="resultMessage" class="result-message">
+                تو خیلی خوب بازی کردی!
+            </p>
+
+
+            <!-- نتیجه -->
+
+            <div class="final-score-card">
+
+                <div class="final-score-item">
+                    <span>⭐</span>
+                    <small>امتیاز تو</small>
+                    <strong id="finalScore">0</strong>
+                </div>
+
+                <div class="final-score-item">
+                    <span>🎯</span>
+                    <small>پاسخ‌های درست</small>
+                    <strong id="finalCorrect">0</strong>
+                </div>
+
+                <div class="final-score-item">
+                    <span>🏆</span>
+                    <small>از کل سؤال‌ها</small>
+                    <strong id="finalTotal">10</strong>
+                </div>
+
+            </div>
+
+
+            <!-- پیام جشن -->
+
+            <div class="winner-message">
+                <span>🌸</span>
+                <p>
+                    تو یک قهرمان کوچولوی باهوشی!
+                </p>
+                <span>🌸</span>
+            </div>
+
+
+            <!-- دکمه بازی دوباره -->
+
+            <button
+                id="restartButton"
+                class="main-button restart-button"
+                type="button">
+                🔄 دوباره بازی کنیم
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         افکت‌های بازی
+    ========================== -->
+
+    <div
+        id="confettiContainer"
+        class="confetti-container"
+        aria-hidden="true">
+    </div>
+
+    <div
+        id="flowerContainer"
+        class="flower-container"
+        aria-hidden="true">
+    </div>
+
+
+    <!-- =========================
+         فایل JavaScript
+    ========================== -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
